@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <!-- <h1 class="header center orange-text">Starter Template</h1> -->
+            <div class="row center">
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <div id="survey_container" class="container">
+        <div class="section">
+            <div class="row">
+                <div id="question_pagination" class="col s12 question-pagination">
+                    <a id="prev_question" class="waves-effect waves-light btn"><i class="material-icons left">chevron_left</i>prev</a>
+                    <a id="next_question" class="waves-effect waves-light btn right"><i class="material-icons right">chevron_right</i>next</a>
+                </div>
+            </div>
+            <div class="row">
+                <ul id="survey_list_handler" class="collapsible" data-collapsible="accordion">
+                    {{#survey}}
+                    <li survey-id="{{id}}" class="animate-transition">
+                        <div id="survey_title" class="collapsible-header">{{title}}</div>
+                        <div id="survey_body" class="collapsible-body">
+                            <div class="row fit-bottom">
+                                <div class="col s4">
+                                    <div class="survey-image">
+                                        <img class="fit-container" src="http://127.0.0.1/market-intel-v2/data/survey_image/{{survey_image}}">
+                                    </div>
+                                </div>
+                                <div class="col s8">
+                                    <p>
+                                        Survey version: {{version}}
+                                    </p>
+                                </div>
+
+                                <!-- floating icon module -->
+                                <div class="fixed-action-btn" style="bottom: 45px; right: 24px;" survey-id="{{id}}">
+                                    <a class="btn-floating btn-large red">
+                                        <i id="start_survey" survey-id="{{id}}" class="large material-icons">forward</i>
+                                    </a>
+                                    <ul>
+                                        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+                                        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+                                        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+                                        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/survey}}
+                </ul>
+            </div>
+        </div>
+        <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
+
+        <!-- Dropdown Trigger -->
+        <!-- <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Drop Me!</a> -->
+
+        <!-- <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast!</a> -->
+
+        <!-- Dropdown Structure -->
+        <!-- <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">one</a></li>
+            <li><a href="#!">two</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">three</a></li>
+        </ul> -->
+    </div>
+</div>

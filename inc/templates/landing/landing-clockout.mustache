@@ -1,0 +1,31 @@
+<div class="input-field col s12">
+	<div class="center clockout_time-holder">
+		<span id="clockintime" class="flow-text clockintime clickable activator align-icon">initializing time</span> <i class="material-icons tiny clickable activator">info_outline</i>
+		<p id="clockindate" class="center clockindate">and date</p>
+	</div>
+	<div class="row">
+		<a id="clockout_confirm" class="waves-effect waves-light btn col s6 landing-next btn-large amber accent-4 grey-text text-darken-4 disabled clockout-button"><i class="material-icons right">access_time</i>Clock out</a>
+		<a id="start" class="waves-effect waves-light btn btn-large col s6 landing-next green black-text disabled start-button"><i class="material-icons right">launch</i><span id="start_text">Start</span></a>
+	</div>
+</div>
+
+<!-- Modals -->
+<div id="clockout_modal" class="modal bottom-sheet">
+	<div class="modal-content">
+		<p id="clockout_message" class="center flow-text"></p>
+	</div>
+	<div class="modal-footer">
+		<a id="clockout_proceed" class="modal-action modal-close waves-effect waves-green btn-flat pull-left teal-text">Sure</a>
+		<a class="modal-action modal-close waves-effect waves-red btn-flat grey-text text-darken-1">Later</a>
+	</div>
+</div>
+
+<div id="logout_modal" class="modal bottom-sheet">
+	<div class="modal-content">
+		<p id="logout_clockout_message" class="center flow-text"></p>
+	</div>
+	<div class="modal-footer">
+		<a id="clockout_proceed" class="modal-action modal-close waves-effect waves-green btn-flat pull-left teal-text">Yes</a>
+		<a class="modal-action modal-close waves-effect waves-red btn-flat">Later</a>
+	</div>
+</div>
