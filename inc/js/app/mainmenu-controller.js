@@ -84,6 +84,37 @@ define(function() {
 					makeSurveyFragment(true)
 		        }
 		    });
+
+		    // toggle checkbox on div
+			$("body").on("click", ".toggler", function (e) {
+				var input = $(this).children().children('input');
+				var isActive = input.prop('checked');
+				var inputType = input.attr("type");
+
+				if (inputType == "checkbox") {
+					if (isActive) {
+						input.prop('checked', false);
+						input.next('label').removeClass('white-text').addClass('grey-text');
+						$(this).removeClass("grey darken-3");
+					} else {
+						input.prop('checked', true);
+						input.next('label').removeClass('grey-text').addClass('white-text');
+						$(this).addClass("grey darken-3");
+					}
+				} else if (inputType == "radio") {
+					if (isActive) {
+						input.prop('checked', false);
+						input.next('label').removeClass('white-text').addClass('grey-text');
+						$(this).removeClass("grey darken-3");
+					} else {
+						input.prop('checked', true);
+						input.next('label').removeClass('grey-text').addClass('white-text');
+						$(this).addClass("grey darken-3");
+						$(this).siblings().removeClass("grey darken-3");
+						$(this).siblings().find("label").removeClass('white-text').addClass('grey-text');
+					}
+				}
+			  });
 		}
 
 		function removeHandlers() {

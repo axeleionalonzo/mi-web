@@ -3,9 +3,9 @@
 	    <p class="flow-text">{{question}}</p>
 	</div>
 	<div class="input-field col s12">
-		<form action="#" class="choices-container">
+		<form action="#" class="justify-container">
 		{{#answers}}
-			<p class="choices">
+			<p class="justify">
 				<input type="{{#allow_multiple}}checkbox{{/allow_multiple}}{{^allow_multiple}}radio{{/allow_multiple}}" id="{{id}}" class="with-gap survey-question-answer" name="label-answer"/>
 				<label for="{{id}}">{{answer}}</label>
 			</p>
@@ -25,30 +25,4 @@
 			<span class="stretch"></span>
 		</form>
 	</div>
-
-  <!-- 
-	<div class="col s12">
-        <div class="input-field">
-        	<div class="justify-container">
-        		<div class="child">
-		    	<input type="checkbox" id="test1" />
-			    <label for="test1">Yellow</label>
-			    </div>
-			    <div class="child">
-				<input type="checkbox" id="test2" />
-			    <label for="test2">Yellow</label>
-			    </div>
-			    <div class="child">
-				<input type="checkbox" id="test3" />
-			    <label for="test3">Yellow</label>
-			    </div>
-			    <div class="child">
-			    <input type="checkbox" id="test4" />
-			    <label for="test4">Yellow</label>
-			    </div>
-        	</div>
-			<label for="first_name">Answers</label>
-        </div>
-
-	</div> -->
 </div>
