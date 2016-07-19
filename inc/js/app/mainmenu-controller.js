@@ -187,34 +187,36 @@ define(function() {
 
 			// console.log(current_questions.length);
 			// load the html for the particular question type
-	        loadHtml(current_question.type);
+			console.log(loadHtml(current_question.type));
+			if (loadHtml(current_question.type)) {
 
-			var selected_survey = current_survey[0];
+				var selected_survey = current_survey[0];
 
-			// console.log(current_survey[0]);
-			// show survey title at nav-bar
-			survey_title_header.html(current_survey[0].title);
+				// console.log(current_survey[0]);
+				// show survey title at nav-bar
+				survey_title_header.html(current_survey[0].title);
 
-			console.log(current_question);
-			// fill the survey box with survey details
-			survey_box.find("div#survey_title").html(current_question.intro + " ( "+current_question.type+" )  <span id='question_counter' class='right'></span>");
-			survey_box.find("span#question_counter").html(current_question.order+"/"+current_questions.length);
-			survey_box.find("div#survey_title").removeClass("active").addClass("disabled");
+				console.log(current_question);
+				// fill the survey box with survey details
+				survey_box.find("div#survey_title").html(current_question.intro + " ( "+current_question.type+" )  <span id='question_counter' class='right'></span>");
+				survey_box.find("span#question_counter").html(current_question.order+"/"+current_questions.length);
+				survey_box.find("div#survey_title").removeClass("active").addClass("disabled");
 
-			// pagination controls
-			pagination.show("fast");
-			// prev button disable on start next button disable on last
-			questionIndex < 1 ? pagination.find("a#prev_question").addClass("disabled") : pagination.find("a#prev_question").removeClass("disabled");
-			questionIndex === (current_questions.length-1) ? pagination.find("a#next_question").addClass("disabled") : pagination.find("a#next_question").removeClass("disabled");
+				// pagination controls
+				pagination.show("fast");
+				// prev button disable on start next button disable on last
+				questionIndex < 1 ? pagination.find("a#prev_question").addClass("disabled") : pagination.find("a#prev_question").removeClass("disabled");
+				questionIndex === (current_questions.length-1) ? pagination.find("a#next_question").addClass("disabled") : pagination.find("a#next_question").removeClass("disabled");
 
-			// create html for the question
-			require(["mustache"], function(Mustache) {
-				var questionHTML = Mustache.render(templates[current_question.type], current_question);
-				var question_container = survey_box.find("div#survey_body");
-				question_container.html(questionHTML);
-			});
+				// create html for the question
+				require(["mustache"], function(Mustache) {
+					var questionHTML = Mustache.render(templates[current_question.type], current_question);
+					var question_container = survey_box.find("div#survey_body");
+					question_container.html(questionHTML);
+				});
 
-			avail = true;
+				avail = true;
+			}
 		}
 
 		function loadMenu() {
@@ -381,6 +383,8 @@ define(function() {
                     templates[content] = data;
                 });
         	}
+
+        	return true;
         }
 
         return {
