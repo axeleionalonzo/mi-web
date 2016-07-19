@@ -416,7 +416,7 @@ img.fit-container {
   display: none;
 }
 
-.choices-container {
+.justify-container {
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 35px;
@@ -425,7 +425,7 @@ img.fit-container {
     text-justify: distribute-all-lines;
 }
 
-.choices {
+.justify {
     vertical-align: top;
     display: inline-block;
     *display: inline;
@@ -437,6 +437,19 @@ img.fit-container {
     display: inline-block;
     font-size: 0;
     line-height: 0
+}
+
+.choices-container {
+    padding-top: 50px;
+    padding-left: 65px;
+    padding-right: 65px;
+    padding-bottom: 35px;
+}
+
+.question-list {
+  border: solid 0.5px;
+  padding: 10px;
+  border-color: #e0e0e0;
 }
 
 /*axel mods end******************************************************************************************/

@@ -1,0 +1,17 @@
+<div class="row fit-bottom" question-id="{{id}}">
+	<div class="col s12">
+	    <p class="flow-text">{{question}}</p>
+	</div>
+	<div class="col s12">
+        <form action="#" class="choices-container">
+		{{#answers}}
+			<div class="row question-list toggler">
+				<div class="col s12">
+					<input type="{{#allow_multiple}}checkbox{{/allow_multiple}}{{^allow_multiple}}radio{{/allow_multiple}}" id="{{id}}" class="with-gap survey-question-answer" name="label-answer"/>
+					<label for="{{id}}">{{answer}}</label>
+				</div>
+			</div>
+		{{/answers}}
+		</form>
+	</div>
+</div>
