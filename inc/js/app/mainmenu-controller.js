@@ -74,24 +74,24 @@ define(function() {
 			$("body").on("click", "#prev_question", function(e) {
 		        e.preventDefault();
 		        if (current_surveyID && avail) {
-					makeSurveyFragment(false)
+					makeSurveyFragment(false);
 		        }
 		    });
 		    
 			$("body").on("click", "#next_question", function(e) {
 		        e.preventDefault();
 		        if (current_surveyID && avail) {
-					makeSurveyFragment(true)
+					makeSurveyFragment(true);
 		        }
 		    });
 
-		    // toggle checkbox on div
+		    // toggle checkbox/radio  on div
 			$("body").on("click", ".toggler", function (e) {
 				var input = $(this).children().children('input');
 				var isActive = input.prop('checked');
 				var inputType = input.attr("type");
 
-				if (inputType == "checkbox") {
+				if (inputType == "checkbox") { // if checkbox
 					if (isActive) {
 						input.prop('checked', false);
 						input.next('label').removeClass('white-text').addClass('grey-text');
@@ -101,7 +101,7 @@ define(function() {
 						input.next('label').removeClass('grey-text').addClass('white-text');
 						$(this).addClass("grey darken-3");
 					}
-				} else if (inputType == "radio") {
+				} else if (inputType == "radio") { // if radio
 					if (isActive) {
 						input.prop('checked', false);
 						input.next('label').removeClass('white-text').addClass('grey-text');
@@ -110,6 +110,7 @@ define(function() {
 						input.prop('checked', true);
 						input.next('label').removeClass('grey-text').addClass('white-text');
 						$(this).addClass("grey darken-3");
+						// restore default styles on unselected radios
 						$(this).siblings().removeClass("grey darken-3");
 						$(this).siblings().find("label").removeClass('white-text').addClass('grey-text');
 					}
