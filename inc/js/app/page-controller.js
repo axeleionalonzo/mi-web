@@ -83,12 +83,14 @@ define(function() {
                     // async: false,
                     success: function(data, textStatus, jqXHR) {
                         // get user date for controls
-                        userData = data;
-                        current_user = userData.user;
-
-                        if (current_user[0].clock_in == null || current_user[0].clock_in == "0000-00-00 00:00:00") {
-                            isClockin = false;
-                        } else isClockin = true;
+                        
+                        if (data.success) {
+                            userData = data;
+                            current_user = data.user;
+                            if (current_user[0].clock_in == null || current_user[0].clock_in == "0000-00-00 00:00:00") {
+                                isClockin = false;
+                            } else isClockin = true;
+                        }
                         
                         if (callback != undefined) {
                             callback();
@@ -328,6 +330,8 @@ define(function() {
                 } else {
                     hash = "clockin";
                 }
+            } else if (logged_in && !isClockin) {
+                hash = "clockin";
             }
 
             // we call this index variable in some methods, this is actually the hash

@@ -1,15 +1,29 @@
-<div class="row fit-bottom">
+<div class="row fit-bottom" question-id="{{id}}">
 	<div class="col s12">
 	    <p class="flow-text">{{question}}</p>
 	</div>
 	<div class="input-field col s12">
-	  <!--   <select multiple>
-			<option value="" disabled selected>Choose your option</option>
-			<option value="1">Option 1</option>
-			<option value="2">Option 2</option>
-			<option value="3">Option 3</option>
-		</select>
-		<label>Materialize Multiple Select</label> -->
+		<form action="#" class="choices-container">
+		{{#answers}}
+			<p class="choices">
+				<input type="{{#allow_multiple}}checkbox{{/allow_multiple}}{{^allow_multiple}}radio{{/allow_multiple}}" id="{{id}}" class="with-gap survey-question-answer" name="label-answer"/>
+				<label for="{{id}}">{{answer}}</label>
+			</p>
+		{{/answers}}<!-- 
+			<p class="choices">
+				<input type="checkbox" id="test6" checked="checked" />
+				<label for="test6">Yellow</label>
+			</p>
+			<p class="choices">
+				<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+				<label for="filled-in-box">Filled in</label>
+			</p>
+			<p class="choices">
+				<input type="checkbox" id="indeterminate-checkbox" />
+				<label for="indeterminate-checkbox">Indeterminate Style</label>
+			</p> -->
+			<span class="stretch"></span>
+		</form>
 	</div>
 
   <!-- 
