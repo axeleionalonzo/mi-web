@@ -333,23 +333,22 @@ define(function() {
         	if (content === "main" && isEmpty(menu_container)) {
 		        $.get('inc/templates/mainmenu/main-menu.mustache', function(data) {
 		            menu_container = data;
+		            if (callback) callback();
 		        });
-        	}
-
-        	if (content === "surveyList" && isEmpty(surveyList_container)) {
+        	} else if (content === "surveyList" && isEmpty(surveyList_container)) {
 		        $.get('inc/templates/mainmenu/surveyList/survey-list.mustache', function(data) {
 		            surveyList_container = data;
+		            if (callback) callback();
 		        });
-        	}
-
-        	if (content in templates && isEmpty(templates[content])) {
+        	} else if (content in templates && isEmpty(templates[content])) {
         		$.get('inc/templates/mainmenu/surveyQuestions/' + content + '.mustache', function(data) {
                     // console.log("key="+key);
                     templates[content] = data;
+                    if (callback) callback();
                 });
+        	} else {
+        		if (callback) callback();
         	}
-
-        	if (callback) callback();
         }
 
         return {
