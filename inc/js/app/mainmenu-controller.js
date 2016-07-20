@@ -187,8 +187,7 @@ define(function() {
 
 			// console.log(current_questions.length);
 			// load the html for the particular question type
-			console.log(loadHtml(current_question.type));
-			if (loadHtml(current_question.type)) {
+			loadHtml(current_question.type, function() { // wait for current question to load its template
 
 				var selected_survey = current_survey[0];
 
@@ -216,7 +215,7 @@ define(function() {
 				});
 
 				avail = true;
-			}
+			});
 		}
 
 		function loadMenu() {
@@ -274,39 +273,6 @@ define(function() {
 
 							var listStatus = false;
 
-
-				            // $.ajax({
-				            //     url: "./inc/templates/html/selection.html",
-				            //     success: function(data) {
-				            //         // get the page
-				            //         survey_content.append(data);
-				            //     }
-				            // });
-
-							// $.each(dataSurvey, function(index, data) {
-								
-							// 	if (index>=1) {
-							// 		surveyPanel = surveyList.children(":first").clone();
-							// 	} else {
-							// 		surveyPanel = surveyList.children(":first");
-							// 	}
-
-							// 	// $(surveyPanel).fadeIn("fast").promise().done(function(){
-							// 	// 	surveyPanel.find("#survey_title").html(data.title);
-							// 	// 	surveyList.append(surveyPanel);
-							// 	// });
-
-
-
-							// 	surveyPanel.find("#survey_title").html(data.title);
-							// 	surveyPanel.find("#survey_title").attr("data-id", data.id);
-
-							// 	surveyList.append(surveyPanel);
-
-							// 	if ((dataSurvey.length-1) == index) listStatus = true;
-
-							// });
-
 							var timeElapsed = new Date().getTime() - start;
 
 							console.log('Time taken: ' + timeElapsed+ ' milliseconds');
@@ -363,7 +329,7 @@ define(function() {
 			}
         }
 
-        function loadHtml(content) {
+        function loadHtml(content, _callback) {
 
         	if (content === "main" && isEmpty(menu_container)) {
 		        $.get('inc/templates/mainmenu/main-menu.mustache', function(data) {
@@ -384,7 +350,7 @@ define(function() {
                 });
         	}
 
-        	return true;
+        	if (_callback) _callback();
         }
 
         return {

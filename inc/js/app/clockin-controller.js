@@ -284,8 +284,8 @@ define(function() {
                 	clockin.fadeIn("slow");
 					var clockinedToday = moment(dataUser[0].clock_in).isSame(new Date(), "day");
 					console.log(dataUser[0]);
-					if (dataUser.length >= 1 && clockinedToday && dataUser[0].clock_out == "0000-00-00 00:00:00") {
-						// is there a user (today/yesterday)
+					if (dataUser.length >= 1 && dataUser[0].clock_out == "0000-00-00 00:00:00") {
+						// is there's a user (today/yesterday)
 						// is the recent user clockedin
 						// is the recent user not clockedout yet
 
@@ -298,7 +298,7 @@ define(function() {
 							});
 						});
 
-					} else if (dataUser.length == 0 || !clockinedToday || dataUser[0].clock_out != "0000-00-00 00:00:00") {
+					} else if (dataUser.length == 0 || dataUser[0].clock_out != "0000-00-00 00:00:00") {
 
 						loadHtml("clockin", function() {
 
@@ -405,7 +405,7 @@ define(function() {
 
 					clockin_status.html("");
 					require(["moment"], function (moment) {
-						var clockined_time = moment(dataUser[0].clock_in).format('hh:mm:ss A');
+						var clockined_time = moment(dataUser[0].clock_in).format('YYYY-MM-DD hh:mm:ss A');
 						interval = setInterval(function() {
 							momentNow = moment();
 							moment_time = momentNow.format('hh:mm:ss A');
@@ -414,10 +414,11 @@ define(function() {
 								.substring(0,3).toUpperCase();
 							real_time.html(moment_time);
 							real_date.html(moment_date);
+							moment_dateDefault = momentNow.format('YYYY-MM-DD');
 
 							// rendered time
-							startTime = moment(clockined_time, "hh:mm:ss A");
-							endTime = moment(moment_time, "hh:mm:ss A");
+							startTime = moment(clockined_time, "YYYY-MM-DD hh:mm:ss A");
+							endTime = moment(moment_dateDefault + " " + moment_time, "YYYY-MM-DD hh:mm:ss A");
 							duration = moment.duration(endTime.diff(startTime));
 							hours = parseInt(duration.asHours());
 							minutes = parseInt(duration.asMinutes())-hours*60;
@@ -438,10 +439,10 @@ define(function() {
 
 							if (user_data.clock_out != "0000-00-00 00:00:00") {
 								// rendered time
-								dtr_time_in = moment(user_data.clock_in).format('hh:mm:ss A');
-								dtr_time_out = moment(user_data.clock_out).format('hh:mm:ss A');
-								dtr_startTime = moment(dtr_time_in, "hh:mm:ss A");
-								dtr_endTime = moment(dtr_time_out, "hh:mm:ss A");
+								dtr_time_in = moment(user_data.clock_in).format('YYYY-MM-DD hh:mm:ss A');
+								dtr_time_out = moment(user_data.clock_out).format('YYYY-MM-DD hh:mm:ss A');
+								dtr_startTime = moment(dtr_time_in, "YYYY-MM-DD hh:mm:ss A");
+								dtr_endTime = moment(dtr_time_out, "YYYY-MM-DD hh:mm:ss A");
 								dtr_duration = moment.duration(dtr_endTime.diff(dtr_startTime));
 								dtr_hours = parseInt(dtr_duration.asHours());
 								dtr_minutes = parseInt(dtr_duration.asMinutes())-dtr_hours*60;
