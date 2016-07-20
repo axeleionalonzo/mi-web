@@ -139,6 +139,7 @@ define(function() {
 		}
 
 		function geoFindMe() {
+			avail = false;
 			var gps_staticmap = $("body").find("div#staticmap");
 			var gps_streepview = $("body").find("div#streepview");
 			var geo_stat = $("body").find("p#geo_status");
@@ -172,9 +173,11 @@ define(function() {
 							var user_address = getAddress[0].formatted_address;
 							geo_stat.html(user_address);
 						}
+						avail = true;
 					},
 		            error: function(xhr, status, errorThrown) {
 						showLoader(false);
+						avail = true;
 						console.log("Error: " + errorThrown);
 						console.log("Status: " + status);
 						console.dir(xhr);
@@ -227,6 +230,7 @@ define(function() {
 				},
 	            error: function(xhr, status, errorThrown) {
 					showLoader(false);
+					avail = true;
 					console.log("Error: " + errorThrown);
 					console.log("Status: " + status);
 					console.dir(xhr);
