@@ -328,10 +328,10 @@ define(function() {
                 hash = 'landing';
             }
 
-            console.log(logged_in);
-            console.log(isWorking);
-            console.log(hash);
-            console.log(controlHash(hash));
+            // console.log(logged_in);
+            // console.log(isWorking);
+            // console.log(hash);
+            // console.log(controlHash(hash));
             // check if the user is not logged in then send it to login agan, overwise send it to surveys
             if (logged_in) {
                 if (isWorking) {
