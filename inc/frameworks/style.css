@@ -447,6 +447,7 @@ img.fit-container {
 }
 
 .question-list {
+  cursor: pointer;
   border: solid 0.5px;
   padding: 10px;
   border-color: #e0e0e0;

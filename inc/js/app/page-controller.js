@@ -12,7 +12,7 @@ define(function() {
 
         // check if it is logged in
         var isLogin = true;
-        var isClockin = false;
+        var isWorking = false;
 
         // get the user date
         var userData;
@@ -88,8 +88,16 @@ define(function() {
                             userData = data;
                             current_user = data.user;
                             if (current_user[0].clock_in == null || current_user[0].clock_in == "0000-00-00 00:00:00") {
-                                isClockin = false;
-                            } else isClockin = true;
+                                isWorking = false;
+                            } else if (current_user[0].clock_out == null || current_user[0].clock_out == "0000-00-00 00:00:00") {
+                                isWorking = true;
+                            } else {
+                                isWorking = false;
+                            }
+
+                            // if (current_user[0].clock_out == null || current_user[0].clock_out == "0000-00-00 00:00:00") {
+                            //     isClockout = false;
+                            // } else isClockout = true;
                         }
                         
                         if (callback != undefined) {
@@ -320,19 +328,34 @@ define(function() {
                 hash = 'landing';
             }
 
+            console.log(logged_in);
+            console.log(isWorking);
+            console.log(hash);
+            console.log(controlHash(hash));
             // check if the user is not logged in then send it to login agan, overwise send it to surveys
-            if (!logged_in) {
-                hash = "landing";
-            } else if (logged_in && hash == "landing" || !controlHash(hash)) { // || !controlHash(hash)
-
-                if (isClockin) {
-                    hash = "mainmenu";
+            if (logged_in) {
+                if (isWorking) {
+                    if (hash == "landing" || !controlHash(hash)) {
+                        hash = "clockin";
+                    }
                 } else {
                     hash = "clockin";
                 }
-            } else if (logged_in && !isClockin) {
-                hash = "clockin";
+            } else {
+                hash = "landing";
             }
+
+            // if (!logged_in) {
+            //     hash = "landing";
+            // } else if (logged_in && hash == "landing" || !controlHash(hash)) { // || !controlHash(hash)
+            //     if (isClockin) {
+            //         hash = "mainmenu";
+            //     } else {
+            //         hash = "clockin";
+            //     }
+            // } else if (logged_in && !isClockin) {
+            //     hash = "clockin";
+            // }
 
             // we call this index variable in some methods, this is actually the hash
             index = hash;
