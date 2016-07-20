@@ -187,7 +187,6 @@ define(function() {
 
 			// console.log(current_questions.length);
 			// load the html for the particular question type
-			console.log(loadHtml(current_question.type));
 			if (loadHtml(current_question.type)) {
 
 				var selected_survey = current_survey[0];
