@@ -222,88 +222,87 @@ define(function() {
 
 			avail = false;
 			var main_content = "";
-	        loadHtml("main");
 
-			var mainmenu = $("body").find("div#mainmenu-container");
-			var clockin = $("body").find("div#clockin-container");
+	        loadHtml("main", function() {
+				var mainmenu = $("body").find("div#mainmenu-container");
+				var clockin = $("body").find("div#clockin-container");
 
-			clockin.hide();
-			
-			console.log(dataUser[0]);
+				clockin.hide();
 
-			require(["mustache"], function(Mustache) {
+				console.log(dataUser[0]);
+				require(["mustache"], function(Mustache) {
 
-				// require.undef("materialize");
-				var maintHTML = Mustache.render(menu_container, dataUser[0]);
-				main_content = $("body").find("div#mainmenu-container");
-				main_content.html(maintHTML);
-				avail = true;
-				
-	        	mainmenu.fadeIn("slow");
+					// require.undef("materialize");
+					var maintHTML = Mustache.render(menu_container, dataUser[0]);
+					main_content = $("body").find("div#mainmenu-container");
+					main_content.html(maintHTML);
+					avail = true;
+					
+		        	mainmenu.fadeIn("slow");
 
-				showLoader(true);
-
-			});
+					showLoader(true);
+				});
+	        });
 
 			// var params = "token="+dataUser[0].token+"&basic="+false+"&time="+"&survey_id="+"&parent_id="+"&check_updates=";
 
-	        loadHtml("surveyList");
+	        loadHtml("surveyList", function() {
+	        	$.ajax({
+					url: './survey/',
+					type: 'GET',
+					success: function(data) {
+						result = data.result;
+						if (result.status) {
+							dataSurvey = data.survey;
 
-        	$.ajax({
-				url: './survey/',
-				type: 'GET',
-				success: function(data) {
-					result = data.result;
-					if (result.status) {
-						dataSurvey = data.survey;
+							require(["mustache"], function(Mustache) {
+							
+								$.getScript("./inc/js/libs/materialize.amd.js");
 
-						require(["mustache"], function(Mustache) {
-						
-							$.getScript("./inc/js/libs/materialize.amd.js");
+								console.log(data);
 
-							console.log(data);
+								var surveyHTML = Mustache.render(surveyList_container, data);
+								survey_content = $("body").find("div#page-content-wrapper");
+								survey_content.html(surveyHTML);
 
-							var surveyHTML = Mustache.render(surveyList_container, data);
-							survey_content = $("body").find("div#page-content-wrapper");
-							survey_content.html(surveyHTML);
+								var surveyList = survey_content.find("ul#survey_list_handler");
+			        			var survey_container = $("body").find("div#survey_container");
+								var start = new Date().getTime();
 
-							var surveyList = survey_content.find("ul#survey_list_handler");
-		        			var survey_container = $("body").find("div#survey_container");
-							var start = new Date().getTime();
+								var listStatus = false;
 
-							var listStatus = false;
+								var timeElapsed = new Date().getTime() - start;
 
-							var timeElapsed = new Date().getTime() - start;
+								console.log('Time taken: ' + timeElapsed+ ' milliseconds');
 
-							console.log('Time taken: ' + timeElapsed+ ' milliseconds');
+								// if (listStatus) {
+									survey_content.show("fast");
+									showLoader(false);
+								// }
 
-							// if (listStatus) {
-								survey_content.show("fast");
-								showLoader(false);
-							// }
-
-						});
+							});
 
 
-						refreshHandlers();
+							refreshHandlers();
 
-							// var maintHTML = Mustache.render(menu_container);
-							// var main_content = $("body").find("div#mainmenu-container");
-							// main_content.html(maintHTML);
-							avail = true;
-					} else {
-                        slider.where("clockin");
-                        return;
-					}
-				},
-	            error: function(xhr, status, errorThrown) {
-					showLoader(false);
-					console.log("Error: " + errorThrown);
-					console.log("Status: " + status);
-					console.dir(xhr);
-				},
-	            dataType: "json"
-        	});
+								// var maintHTML = Mustache.render(menu_container);
+								// var main_content = $("body").find("div#mainmenu-container");
+								// main_content.html(maintHTML);
+								avail = true;
+						} else {
+	                        slider.where("clockin");
+	                        return;
+						}
+					},
+		            error: function(xhr, status, errorThrown) {
+						showLoader(false);
+						console.log("Error: " + errorThrown);
+						console.log("Status: " + status);
+						console.dir(xhr);
+					},
+		            dataType: "json"
+	        	});
+	        });
 
 		}
 
@@ -329,7 +328,7 @@ define(function() {
 			}
         }
 
-        function loadHtml(content, _callback) {
+        function loadHtml(content, callback) {
 
         	if (content === "main" && isEmpty(menu_container)) {
 		        $.get('inc/templates/mainmenu/main-menu.mustache', function(data) {
@@ -350,7 +349,7 @@ define(function() {
                 });
         	}
 
-        	if (_callback) _callback();
+        	if (callback) callback();
         }
 
         return {
