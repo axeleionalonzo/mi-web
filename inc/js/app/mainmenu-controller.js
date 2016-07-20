@@ -115,7 +115,15 @@ define(function() {
 						$(this).siblings().find("label").removeClass('white-text').addClass('grey-text');
 					}
 				}
-			  });
+			});
+
+			$("body").on("click", "#show_location", function(e) {
+		        e.preventDefault();
+		        if (avail) {
+					geoFindMe();
+		        }
+		    });
+
 		}
 
 		function removeHandlers() {
@@ -128,6 +136,63 @@ define(function() {
 		function refreshHandlers() {
 			removeHandlers();
 			attachHandlers();
+		}
+
+		function geoFindMe() {
+			var gps_staticmap = $("body").find("div#staticmap");
+			var gps_streepview = $("body").find("div#streepview");
+			var geo_stat = $("body").find("p#geo_status");
+			var geo_data = $("body").find("p#geo_details");
+
+			if (!navigator.geolocation){
+				geo_stat.html("Geolocation is not supported by your browser.");
+				return;
+			}
+
+			function success(position) {
+				var latitude  = position.coords.latitude;
+				var longitude = position.coords.longitude;
+
+				geo_data.html('Latitude is ' + latitude + '° Longitude is ' + longitude + '°');
+
+				var staticimg = new Image();
+				var streetimg = new Image();
+				var geo_address = [];
+				staticimg.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=14&size=1000x350&markers=color:blue%7Clabel:A%7C" + latitude + "," + longitude + "&sensor=false";
+				streetimg.src = "https://maps.googleapis.com/maps/api/streetview?location=" + latitude + "," + longitude + "&size=1000x350&heading=151.78&pitch=-0.76";
+				
+
+				$.ajax({
+					url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + latitude + "," + longitude + "&sensor=true",
+					type: 'GET',
+	            	dataType: "json",
+					success: function(data) {
+						if (data.status == "OK") {
+							var getAddress = data.results;
+							var user_address = getAddress[0].formatted_address;
+							geo_stat.html(user_address);
+						}
+					},
+		            error: function(xhr, status, errorThrown) {
+						showLoader(false);
+						console.log("Error: " + errorThrown);
+						console.log("Status: " + status);
+						console.dir(xhr);
+					}
+				});
+
+				// console.log(geo_address);
+				gps_staticmap.append(staticimg);
+				gps_streepview.append(streetimg);
+			};
+
+			function error() {
+				geo_stat.html("Unable to retrieve your location.");
+			};
+
+			geo_stat.html("Locating …");
+
+			navigator.geolocation.getCurrentPosition(success, error);
 		}
 
 		function start_survey() {
@@ -212,6 +277,7 @@ define(function() {
 					var questionHTML = Mustache.render(templates[current_question.type], current_question);
 					var question_container = survey_box.find("div#survey_body");
 					question_container.html(questionHTML);
+					if (current_question.type == "gps") geoFindMe();
 				});
 
 				avail = true;
