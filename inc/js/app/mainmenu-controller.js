@@ -26,7 +26,8 @@ define(function() {
 			current_surveyID = "",
 			current_survey = 0,
 			current_questions = "",
-			questionIndex = 0;
+			questionIndex = 0,
+			loadedQuestions = [];
 
 		function isEmpty(p) {
 		    return p.length == 0 ? true : false;
@@ -249,26 +250,25 @@ define(function() {
 			}
 
 			var survey_container = $("body").find("div#survey_container");
-			var survey_title_header = $("body").find("span#survey_title_header");
+			var survey_head = $("body").find("span#survey_title_header");
 			var pagination = $("body").find("div#question_pagination");
-			var survey_box = survey_container.find("li[survey-id='"+current_surveyID+"']");
-			var current_question = current_questions[questionIndex];
+			var survey_card = survey_container.find("li[survey-id='"+current_surveyID+"']");
+			var currentQuestion = current_questions[questionIndex];
+			var currentSurvey = current_survey[0];
 
-			// console.log(current_questions.length);
 			// load the html for the particular question type
-			loadHtml(current_question.type, function() { // wait for current question to load its template
+			loadHtml(currentQuestion.type, function() { // wait for current question to load its template
 
-				var selected_survey = current_survey[0];
 
 				// console.log(current_survey[0]);
 				// show survey title at nav-bar
-				survey_title_header.html(current_survey[0].title);
+				survey_head.html(currentSurvey.title);
 
-				console.log(current_question);
-				// fill the survey box with survey details
-				survey_box.find("div#survey_title").html(current_question.intro + " ( "+current_question.type+" )  <span id='question_counter' class='right'></span>");
-				survey_box.find("span#question_counter").html(current_question.order+"/"+current_questions.length);
-				survey_box.find("div#survey_title").removeClass("active").addClass("disabled");
+				console.log(currentQuestion);
+				// fill the survey currentQuestion with survey details
+				survey_card.find("div#survey_title").html(currentQuestion.intro + " ( "+currentQuestion.type+" )  <span id='question_counter' class='right'></span>");
+				survey_card.find("span#question_counter").html(currentQuestion.order+"/"+current_questions.length);
+				survey_card.find("div#survey_title").removeClass("active").addClass("disabled");
 
 				// pagination controls
 				pagination.show("fast");
@@ -276,13 +276,27 @@ define(function() {
 				questionIndex < 1 ? pagination.find("a#prev_question").addClass("disabled") : pagination.find("a#prev_question").removeClass("disabled");
 				questionIndex === (current_questions.length-1) ? pagination.find("a#next_question").addClass("disabled") : pagination.find("a#next_question").removeClass("disabled");
 
+
 				// create html for the question
-				require(["mustache"], function(Mustache) {
-					var questionHTML = Mustache.render(templates[current_question.type], current_question);
-					var question_container = survey_box.find("div#survey_body");
-					question_container.html(questionHTML);
-					if (current_question.type == "gps") geoFindMe();
-				});
+				if (goNext) {
+					require(["mustache"], function(Mustache) {
+						var questionHTML = Mustache.render(templates[currentQuestion.type], currentQuestion);
+						var survey_body = survey_card.find("div#survey_body");
+						if (init_start) {
+							survey_body.html(questionHTML);
+						} else {
+							survey_body.children().hide(); // hide all the questions
+							survey_body.append(questionHTML); //  then add the current
+						}
+						if (currentQuestion.type == "gps") geoFindMe();
+					});
+				} else { // if prev
+					var survey_body = survey_card.find("div#survey_body");
+
+					survey_body.children("div:nth-child("+(questionIndex+2)+")").remove(); // remove current question
+					// survey_body.children("div:nth-child("+(questionIndex.order)+")").remove();
+					survey_body.children("div:nth-child("+(questionIndex+1)+")").show(); // show prev question
+				}
 
 				avail = true;
 			});
