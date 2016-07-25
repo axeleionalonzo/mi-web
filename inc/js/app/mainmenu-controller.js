@@ -26,8 +26,7 @@ define(function() {
 			current_surveyID = "",
 			current_survey = 0,
 			current_questions = "",
-			questionIndex = 0,
-			loadedQuestions = [];
+			questionIndex = 0;
 
 		function isEmpty(p) {
 		    return p.length == 0 ? true : false;
@@ -124,7 +123,6 @@ define(function() {
 					geoFindMe();
 		        }
 		    });
-
 		}
 
 		function removeHandlers() {
@@ -259,7 +257,6 @@ define(function() {
 			// load the html for the particular question type
 			loadHtml(currentQuestion.type, function() { // wait for current question to load its template
 
-
 				// console.log(current_survey[0]);
 				// show survey title at nav-bar
 				survey_head.html(currentSurvey.title);
@@ -288,7 +285,18 @@ define(function() {
 							survey_body.children().hide(); // hide all the questions
 							survey_body.append(questionHTML); //  then add the current
 						}
-						if (currentQuestion.type == "gps") geoFindMe();
+
+						if (currentQuestion.type == "gps") {
+							geoFindMe();
+						} else if (currentQuestion.type == "prioritise") {
+							var el = document.getElementById('items');  //returns a HTML DOM Object
+							var sortable = new Sortable(el, {
+								animation: 150,
+							    ghostClass: "sortable-ghost",  // Class name for the drop placeholder
+							    chosenClass: "sortable-chosen",  // Class name for the chosen item
+							    dataIdAttr: "data-id"
+							});
+						}
 					});
 				} else { // if prev
 					var survey_body = survey_card.find("div#survey_body");
@@ -321,7 +329,7 @@ define(function() {
 					main_content = $("body").find("div#mainmenu-container");
 					main_content.html(maintHTML);
 					avail = true;
-					
+
 		        	mainmenu.fadeIn("slow");
 
 					showLoader(true);
@@ -363,9 +371,7 @@ define(function() {
 									survey_content.show("fast");
 									showLoader(false);
 								// }
-
 							});
-
 
 							refreshHandlers();
 

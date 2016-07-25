@@ -463,5 +463,23 @@ img.fit-container {
   width: 100%;
 }
 
+.sortable-ghost {
+  background-color: #ffd740 !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+}
+
+.sortable-chosen {
+  /*background-color: black !important;*/
+}
+
+.collection-border {
+  border: solid 0.5px !important;
+  border-color: #e0e0e0 !important;
+}
+
+.draggable {
+  cursor: move;
+}
+
 /*axel mods end******************************************************************************************/
 /********************************************************************************************************/
