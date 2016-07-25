@@ -12,35 +12,36 @@ require.config({
 		'moment': 'libs/moment.min',
 		'mustache': 'libs/mustache.min',
 		'bootstrap_sidenav': '../plugins/startbootstrap-simple-sidebar-1.0.5/js/bootstrap.min',
+		'sortable': '../plugins/Sortable-master/sortable'
 
 		// materialize components start
-		'hammerjs': '../frameworks/materialize/js/components/hammer.min',
-        'jquery.easing': '../frameworks/materialize/js/components/jquery.easing.1.3',
-        'velocity': '../frameworks/materialize/js/components/velocity.min',
-        'picker': '../frameworks/materialize/js/components/date_picker/picker',
-        'picker.date': '../frameworks/materialize/js/components/date_picker/picker.date',
-        'waves': '../frameworks/materialize/js/components/waves',
-        'global': '../frameworks/materialize/js/components/global',
-        'animation': '../frameworks/materialize/js/components/animation',
-        'collapsible': '../frameworks/materialize/js/components/collapsible',
-        'dropdown': '../frameworks/materialize/js/components/dropdown',
-        'leanModal': '../frameworks/materialize/js/components/leanModal',
-        'materialbox': '../frameworks/materialize/js/components/materialbox',
-        'tabs': '../frameworks/materialize/js/components/tabs',
-        'sideNav': '../frameworks/materialize/js/components/sideNav',
-        'parallax': '../frameworks/materialize/js/components/parallax',
-        'scrollspy': '../frameworks/materialize/js/components/scrollspy',
-        'tooltip': '../frameworks/materialize/js/components/tooltip',
-        'slider': '../frameworks/materialize/js/components/slider',
-        'cards': '../frameworks/materialize/js/components/cards',
-        'buttons': '../frameworks/materialize/js/components/buttons',
-        'pushpin': '../frameworks/materialize/js/components/pushpin',
-        'character_counter': '../frameworks/materialize/js/components/character_counter',
-        'toasts': '../frameworks/materialize/js/components/toasts',
-        'forms': '../frameworks/materialize/js/components/forms',
-        'scrollFire': '../frameworks/materialize/js/components/scrollFire',
-        'transitions': '../frameworks/materialize/js/components/transitions',
-        'jquery.hammer': '../frameworks/materialize/js/components/jquery.hammer'
+		// 'hammerjs': '../frameworks/materialize/js/components/hammer.min',
+		// 'jquery.easing': '../frameworks/materialize/js/components/jquery.easing.1.3',
+		// 'velocity': '../frameworks/materialize/js/components/velocity.min',
+		// 'picker': '../frameworks/materialize/js/components/date_picker/picker',
+		// 'picker.date': '../frameworks/materialize/js/components/date_picker/picker.date',
+		// 'waves': '../frameworks/materialize/js/components/waves',
+		// 'global': '../frameworks/materialize/js/components/global',
+		// 'animation': '../frameworks/materialize/js/components/animation',
+		// 'collapsible': '../frameworks/materialize/js/components/collapsible',
+		// 'dropdown': '../frameworks/materialize/js/components/dropdown',
+		// 'leanModal': '../frameworks/materialize/js/components/leanModal',
+		// 'materialbox': '../frameworks/materialize/js/components/materialbox',
+		// 'tabs': '../frameworks/materialize/js/components/tabs',
+		// 'sideNav': '../frameworks/materialize/js/components/sideNav',
+		// 'parallax': '../frameworks/materialize/js/components/parallax',
+		// 'scrollspy': '../frameworks/materialize/js/components/scrollspy',
+		// 'tooltip': '../frameworks/materialize/js/components/tooltip',
+		// 'slider': '../frameworks/materialize/js/components/slider',
+		// 'cards': '../frameworks/materialize/js/components/cards',
+		// 'buttons': '../frameworks/materialize/js/components/buttons',
+		// 'pushpin': '../frameworks/materialize/js/components/pushpin',
+		// 'character_counter': '../frameworks/materialize/js/components/character_counter',
+		// 'toasts': '../frameworks/materialize/js/components/toasts',
+		// 'forms': '../frameworks/materialize/js/components/forms',
+		// 'scrollFire': '../frameworks/materialize/js/components/scrollFire',
+		// 'transitions': '../frameworks/materialize/js/components/transitions',
+		// 'jquery.hammer': '../frameworks/materialize/js/components/jquery.hammer'
 		// materialize components end
 	},
 	shim: {
@@ -55,12 +56,15 @@ require.config({
 		},
 		bootstrap_sidenav: {
 			deps: ['jquery']
+		},
+		sortable: {
+			deps: ['jquery']
 		}
 	}
 });
 
 // initialize module
-require(['jquery', 'materialize', 'jqueryui', 'jquerythde', 'bootstrap_sidenav'], function($) {
+require(['jquery', 'materialize', 'jqueryui', 'jquerythde', 'bootstrap_sidenav', 'sortable'], function($) {
 	$(function() {
 
 		$('.tooltipped').tooltip();
